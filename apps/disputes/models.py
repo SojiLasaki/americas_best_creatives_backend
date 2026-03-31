@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -5,6 +6,8 @@ User = get_user_model()
 
 
 class Dispute(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     class Status(models.TextChoices):
         OPEN = 'open', 'Open'
         UNDER_REVIEW = 'under_review', 'Under Review'

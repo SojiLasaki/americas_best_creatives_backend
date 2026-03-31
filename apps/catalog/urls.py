@@ -7,12 +7,12 @@ router.register('catalog', CatalogViewSet, basename='catalog')
 
 urlpatterns = router.urls + [
     path(
-        'catalog/<int:catalog_pk>/fields/',
+        'catalog/<uuid:catalog_pk>/fields/',
         CatalogFieldViewSet.as_view({'get': 'list', 'post': 'create'}),
         name='catalog-fields',
     ),
     path(
-        'catalog/<int:catalog_pk>/fields/<int:pk>/',
+        'catalog/<uuid:catalog_pk>/fields/<uuid:pk>/',
         CatalogFieldViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'}),
         name='catalog-field-detail',
     ),

@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -5,6 +6,8 @@ User = get_user_model()
 
 
 class Quote(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     class Status(models.TextChoices):
         PENDING = 'pending', 'Pending'
         QUOTED = 'quoted', 'Quoted'
@@ -31,6 +34,7 @@ class Quote(models.Model):
 
 
 class QuoteInputValue(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     quote = models.ForeignKey(Quote, on_delete=models.CASCADE, related_name='input_values')
     field = models.ForeignKey('catalog.CatalogInputField', on_delete=models.CASCADE)
     value = models.TextField()
@@ -40,6 +44,7 @@ class QuoteInputValue(models.Model):
 
 
 class QuoteDocument(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     quote = models.ForeignKey(Quote, on_delete=models.CASCADE, related_name='documents')
     uploaded_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     file = models.FileField(upload_to='quote_documents/')

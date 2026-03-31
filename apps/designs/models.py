@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -5,6 +6,8 @@ User = get_user_model()
 
 
 class DesignerAssignment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     class Status(models.TextChoices):
         PENDING = 'pending', 'Pending'
         IN_PROGRESS = 'in_progress', 'In Progress'
@@ -22,6 +25,7 @@ class DesignerAssignment(models.Model):
 
 
 class DesignSubmission(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     assignment = models.ForeignKey(DesignerAssignment, on_delete=models.CASCADE, related_name='submissions')
     file = models.FileField(upload_to='design_submissions/')
     comment = models.TextField(blank=True)
@@ -32,6 +36,8 @@ class DesignSubmission(models.Model):
 
 
 class RevisionRequest(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     class Status(models.TextChoices):
         PENDING = 'pending', 'Pending'
         IN_PROGRESS = 'in_progress', 'In Progress'
@@ -48,6 +54,7 @@ class RevisionRequest(models.Model):
 
 
 class AvailabilityProfile(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     designer = models.OneToOneField(User, on_delete=models.CASCADE, related_name='availability')
     available = models.BooleanField(default=True)
     expertise = models.JSONField(default=list, blank=True)

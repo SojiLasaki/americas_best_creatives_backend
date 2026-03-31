@@ -6,6 +6,8 @@ User = get_user_model()
 
 
 class Invoice(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     class PaymentStatus(models.TextChoices):
         UNPAID = 'unpaid', 'Unpaid'
         PAID = 'paid', 'Paid'
@@ -34,6 +36,8 @@ class Invoice(models.Model):
 
 
 class Payment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     class PaymentMethod(models.TextChoices):
         CARD = 'card', 'Card'
         BANK_TRANSFER = 'bank_transfer', 'Bank Transfer'
@@ -59,6 +63,7 @@ class Payment(models.Model):
 
 
 class PaymentReceipt(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     payment = models.OneToOneField(Payment, on_delete=models.CASCADE, related_name='receipt')
     receipt_file = models.FileField(upload_to='receipts/', blank=True, null=True)
     generated_at = models.DateTimeField(auto_now_add=True)
